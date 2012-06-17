@@ -1,0 +1,112 @@
+body { margin:0; padding:0; }
+
+.scoreboard,
+.scoreboard header { background-color:#025037; }
+
+.scoreboard { position:relative; z-index:1; margin:0 auto; padding-top:44px; color:#fff; font-family: 'Ubuntu Mono', sans-serif; font-size:18px; overflow:hidden; }
+
+.scoreboard header { position:fixed; z-index:3; top:0; left:0; right:0; display:-webkit-box; display:-moz-box; display:box; margin:0 0 0; font-family:Helvetica, Arial, sans-serif;
+	-webkit-box-align:center;
+	-webkit-box-shadow:0 2px 5px rgba(0,0,0,0.5), inset 0 -1px 1px rgba(255,255,255,0.25);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.02)), color-stop(50%, rgba(255, 255, 255, 0.10)),color-stop(51%, rgba(0, 0, 0, 0.10)), to(rgba(0, 0, 0, 0.05)));
+}
+
+.scoreboard header a { display:block; width:44px; height:44px; text-indent:-9999px; cursor:pointer;
+	background:url(../images/arrows.png) 3px -1px no-repeat;
+	-webkit-background-size:38px; -moz-background-size:38px; background-size:38px;
+
+	-webkit-transition:background-color 0.1s linear;
+}
+.scoreboard header a:hover { background-color:rgba(255,255,255,0.10); }
+.scoreboard header a:first-child { border-right:1px solid rgba(0,0,0,0.25); -webkit-box-shadow:inset -1px 0 1px rgba(255,255,255,0.15), 1px 0 rgba(255,255,255,0.05); }
+.scoreboard header a:last-child { border-left:1px solid rgba(0,0,0,0.25);  -webkit-box-shadow:inset 1px 0 1px rgba(255,255,255,0.15), -1px 0 rgba(255,255,255,0.05); 
+	background-position: 5px -52px;
+}
+.scoreboard header h1 { -webkit-box-flex:1; margin:0; padding:10px 0; font-size:15px; color:rgba(255, 255, 2555, 0.85); text-align:center; text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.85); }
+
+.games { padding:20px 7px; margin:0 auto; }
+
+.game { position:relative; display:inline-block; width:300px; padding:10px; margin:2px 2px; -webkit-box-sizing:border-box;
+	-webkit-box-shadow:inset 1px 1px 5px rgba(0,0,0,0.6), inset 0 0 2px rgba(0,0,0,0.25), inset -1px -1px 1px rgba(255,255,255,0.3), -1px -1px 1px rgba(255,255,255,0.1);
+	-webkit-transition:background-color 0.2s linear; 
+}
+.game:hover { background-color:rgba(255,255,255,0.075); }
+
+.game .inning { text-transform:uppercase; }
+.game .away div, 
+.game .home div { display:inline-block; width:30px; padding:4px; text-align:center; }
+
+.game .away div:first-child,
+.game .home div:first-child { width:40px; text-align:left; }
+
+.game .bases { width: 35px; height: 35px; position:absolute; top:25px; right:30px;
+	-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); transform: rotate(-45deg);
+}
+
+.game .bases span { width: 14px; height: 14px; display: block; position: absolute; background-color:rgba(0,0,0,0.15);
+	-webkit-box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.25);
+	   -moz-box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.25);
+	        box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.25);
+	-webkit-transition:background-color 0.2s linear; -moz-transition:background-color 0.2s linear; transition:background-color 0.2s linear;
+}
+
+.game .bases .hasrunner { background:rgb(224, 214, 98); }
+.game .bases .first { bottom:0; right:0; }
+.game .bases .second { top:0; right:0; }
+.game .bases .third { top:0; left:0; }
+
+.outs { position:absolute; right:18px; bottom:15px; width:60px; height:20px; text-align:center;}
+
+.outs span { display: inline-block; width: 12px; height: 12px; background-color:transparent;
+	-webkit-border-radius: 6px; margin: 0 5px 0 0;
+	box-shadow: inset -2px -2px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 0px rgba(255, 255, 255, 0.40);
+	-webkit-transition:background-color 0.2s linear, box-shadow 0.3s linear;
+}
+
+.outs span:last-child { margin-right:0;}
+
+.outs.one span:first-child,
+.outs.two span:not(:last-child),
+.outs.three span { background-color:rgba(253,5,5,1);
+	-webkit-box-shadow:inset -2px -2px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 3px rgba(255, 255, 255, 0.70), 0 0 5px 2px rgba(226, 47, 47, 0.75);
+	box-shadow:inset -2px -2px 2px rgba(0, 0, 0, 0.25), inset 1px 1px 3px rgba(255, 255, 255, 0.70), 0 0 5px 2px rgba(226, 47, 47, 0.75);
+}
+
+.game table.score td { border:2px solid #025037; min-width:23px; height:23px; padding:5px; text-align:center;
+	-webkit-box-shadow:inset 1px 1px 5px rgba(0,0,0,0.6), inset 0 0 2px rgba(0,0,0,0.25), inset -1px -1px 1px rgba(255,255,255,0.3), -1px -1px 1px rgba(255,255,255,0.1);
+ }
+
+
+.game .inning-half::after { content:""; display:block; margin:0 auto; width:0; height:0; border:8px solid transparent; }
+
+.game .inning-half.top::after { border-bottom-color:#fff; margin-top:-8px; }
+.game .inning-half.bottom::after { border-top-color:#fff; margin-top:5px; }
+
+
+.scoreboard .detail-viewer { position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(255,255,255,0.85); 
+	-webkit-transform:translate3d(100%, 0, 0);
+	-webkit-transition:-webkit-transform 0.45s ease-out;
+} 
+
+.scoreboard .detail-viewer.visible {
+	-webkit-transform:translate3d(0, 0, 0);
+}
+
+
+@media screen and (min-width:1024px) { 
+	.games { width:940px; }
+}
+
+@media screen and (max-width:940px) { 
+	.games { width:610px; }
+}
+
+@media screen and (max-width:620px) { 
+	.games { width:300px; }
+	html, body { height:100%; }
+	.scoreboard { min-height:100%; }
+}
+
+
+
+
