@@ -3,105 +3,108 @@
 var ScoreBoardForDay;
 
 ScoreBoardForDay = function (date) {
-	date = new Date(date);
-	
-	this.dataURL = this.constructDataURL(date);
-	this.games = {};
-	this.gamesObj = {};
+  date = new Date(date);
 
-	this.init();
-	this.view = this.buildHTML();
+  this.dataURL = this.constructDataURL(date);
+  this.games = {};
+  this.gamesObj = {};
 
-	return this;
+  this.init();
+  this.view = this.buildHTML();
+
+  return this;
 
 };
 
 ScoreBoardForDay.prototype = {
 
-	getView: function () {
-		return this.view;
-	},
+  getView: function () {
+    return this.view;
+  },
 
-	buildHTML: function () {
-		return this.instanceWrapper;
-	},
+  buildHTML: function () {
+    return this.instanceWrapper;
+  },
 
-	constructDataURL: function (date) {
+  constructDataURL: function (date) {
 
-		var proxyURL = '/static/fpo/html/proxy.php?url=',
-	        gameDayBaseURL = 'http://gd2.mlb.com/components/game/mlb/',
-	        fileName = 'miniscoreboard.json',
-	        year = date.getFullYear().toString(),
-	        month = date.getMonth() + 1,
-	        day = date.getDate();
+    var proxyBaseURL = '/scoreboard',
+        gameDayBaseURL = 'http://gd2.mlb.com/components/game/mlb/',
+        fileName = 'miniscoreboard.json',
+        year = date.getFullYear().toString(),
+        month = date.getMonth() + 1,
+        day = date.getDate();
 
-		return proxyURL + gameDayBaseURL + 'year_' + year + '/' + 'month_' + (month < 10 ? '0' + month : month) + '/' + 'day_' + (day < 10 ? '0' + day : day) + '/' + fileName;
-	},
-	
-	init: function () {
-		var instanceWrapper;
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
 
-		instanceWrapper = document.createElement('section');
-		instanceWrapper.classList.add('games');
+    return proxyBaseURL + '/' + year + '/' + month + '/' + day;
+  },
 
-		this.instanceWrapper = instanceWrapper;
-		this.getData(this.dataURL);
-		
-		this.startPoller();
-	
-	},
+  init: function () {
+    var instanceWrapper;
 
-	loadGames: function (data) {
+    instanceWrapper = document.createElement('section');
+    instanceWrapper.classList.add('games');
 
-		var games = data.data.games.game,
-		    game, i, len;
+    this.instanceWrapper = instanceWrapper;
+    this.getData(this.dataURL);
 
-		if (games.length > 1) {
-			for (i = 0, len = games.length; i < len; i++) {
-				game = new Game(games[i]);
-				this.gamesObj[games[i].id] = game;
+    this.startPoller();
 
-				this.instanceWrapper.appendChild(game.getView());
-			}
-		}
+  },
 
-	},
+  loadGames: function (data) {
 
-	getData: function (url) {
-		var self = this;
-		$.getJSON(url, function (data) { self.loadGames.call(self, data); });
-	},
+    var games = data.data.games.game,
+        game, i, len;
 
-	updateGames: function (data) {
-		var games = data.data.games.game, 
-		    i, len, id, game;
+    if (games.length > 1) {
+      for (i = 0, len = games.length; i < len; i++) {
+        game = new Game(games[i]);
+        this.gamesObj[games[i].id] = game;
 
-		for (i = 0, len = games.length; i < len; i++) {
-			game = games[i];
-			id = game.id;
-			pubsub.publish(id + '_updated', game);
-		}
+        this.instanceWrapper.appendChild(game.getView());
+      }
+    }
 
-	},
+  },
 
-	startPoller: function () {
-		var self = this;
-		this.poller = new Poller(this.dataURL, self.updateGames);
-		this.poller.poll();
-	},
+  getData: function (url) {
+    var self = this;
+    $.getJSON(url, function (data) { self.loadGames.call(self, data); });
+  },
 
-	clearGames: function () {
-		var game;
-		for (game in this.gamesObj) {
-			this.gamesObj[game].cancelSubscription();
-		}
+  updateGames: function (data) {
+    var games = data.data.games.game,
+        i, len, id, game;
 
-		this.quitPoller();
-	},
+    for (i = 0, len = games.length; i < len; i++) {
+      game = games[i];
+      id = game.id;
+      pubsub.publish(id + '_updated', game);
+    }
 
-	quitPoller: function () {
-		this.poller.stopPolling();
-	},
+  },
+
+  startPoller: function () {
+    var self = this;
+    this.poller = new Poller(this.dataURL, self.updateGames);
+    this.poller.poll();
+  },
+
+  clearGames: function () {
+    var game;
+    for (game in this.gamesObj) {
+      this.gamesObj[game].cancelSubscription();
+    }
+
+    this.quitPoller();
+  },
+
+  quitPoller: function () {
+    this.poller.stopPolling();
+  },
 
 };
 
