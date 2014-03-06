@@ -1,9 +1,11 @@
+html, body { position:relative; z-index:1; min-height:100%; height: 100%; }
+html { height:100%; }
 body { margin:0; padding:0; }
 
 .scoreboard,
 .scoreboard header { background-color:#025037; }
 
-.scoreboard { position:relative; z-index:1; margin:0 auto; padding-top:44px; color:#fff; font-family: 'Ubuntu Mono', sans-serif; font-size:18px; overflow:hidden; }
+.scoreboard { position:relative; z-index:1; min-height: 100%; margin:0 auto; padding-top:44px; color:#fff; font-family: 'Ubuntu Mono', sans-serif; font-size:18px; overflow:hidden; }
 
 .scoreboard header { position:fixed; z-index:3; top:0; left:0; right:0; display:-webkit-box; display:-moz-box; display:box; margin:0 0 0; font-family:Helvetica, Arial, sans-serif;
 	-webkit-box-align:center;
@@ -19,7 +21,7 @@ body { margin:0; padding:0; }
 }
 .scoreboard header a:hover { background-color:rgba(255,255,255,0.10); }
 .scoreboard header a:first-child { border-right:1px solid rgba(0,0,0,0.25); -webkit-box-shadow:inset -1px 0 1px rgba(255,255,255,0.15), 1px 0 rgba(255,255,255,0.05); }
-.scoreboard header a:last-child { border-left:1px solid rgba(0,0,0,0.25);  -webkit-box-shadow:inset 1px 0 1px rgba(255,255,255,0.15), -1px 0 rgba(255,255,255,0.05); 
+.scoreboard header a:last-child { border-left:1px solid rgba(0,0,0,0.25);  -webkit-box-shadow:inset 1px 0 1px rgba(255,255,255,0.15), -1px 0 rgba(255,255,255,0.05);
 	background-position: 5px -52px;
 }
 .scoreboard header h1 { -webkit-box-flex:1; margin:0; padding:10px 0; font-size:15px; color:rgba(255, 255, 2555, 0.85); text-align:center; text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.85); }
@@ -28,12 +30,12 @@ body { margin:0; padding:0; }
 
 .game { position:relative; display:inline-block; width:300px; padding:10px; margin:2px 2px; -webkit-box-sizing:border-box;
 	-webkit-box-shadow:inset 1px 1px 5px rgba(0,0,0,0.6), inset 0 0 2px rgba(0,0,0,0.25), inset -1px -1px 1px rgba(255,255,255,0.3), -1px -1px 1px rgba(255,255,255,0.1);
-	-webkit-transition:background-color 0.2s linear; 
+	-webkit-transition:background-color 0.2s linear;
 }
 .game:hover { background-color:rgba(255,255,255,0.075); }
 
 .game .inning { text-transform:uppercase; }
-.game .away div, 
+.game .away div,
 .game .home div { display:inline-block; width:30px; padding:4px; text-align:center; }
 
 .game .away div:first-child,
@@ -83,25 +85,25 @@ body { margin:0; padding:0; }
 .game .inning-half.bottom::after { border-top-color:#fff; margin-top:5px; }
 
 
-.scoreboard .detail-viewer { position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(255,255,255,0.85); 
+.scoreboard .detail-viewer { position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(255,255,255,0.85);
 	-webkit-transform:translate3d(100%, 0, 0);
 	-webkit-transition:-webkit-transform 0.45s ease-out;
-} 
+}
 
 .scoreboard .detail-viewer.visible {
 	-webkit-transform:translate3d(0, 0, 0);
 }
 
 
-@media screen and (min-width:1024px) { 
+@media screen and (min-width:1024px) {
 	.games { width:940px; }
 }
 
-@media screen and (max-width:940px) { 
+@media screen and (max-width:940px) {
 	.games { width:610px; }
 }
 
-@media screen and (max-width:620px) { 
+@media screen and (max-width:620px) {
 	.games { width:300px; }
 	html, body { height:100%; }
 	.scoreboard { min-height:100%; }

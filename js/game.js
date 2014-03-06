@@ -136,6 +136,11 @@
         this.inning = ['P', ''];
         this.cancelSubscription();
 
+      } else if (data.status === 'Cancelled') {
+
+        this.inning = ['C', ''];
+        this.cancelSubscription();
+
       } else {
 
         this.inning = [data.inning, (data.top_inning === "Y" ? "top" : "bottom")];
